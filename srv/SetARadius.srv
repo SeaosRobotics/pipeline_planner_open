@@ -1,0 +1,9 @@
+#ID of the pipeline segment
+int32 ID
+#new radius of the pipeline segment
+float64 radius
+---
+#result state
+int32 result
+#updated status of reading checkpoints
+uint32 read_status

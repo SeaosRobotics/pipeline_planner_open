@@ -1,0 +1,3 @@
+geometry_msgs/PoseArray checkpoints
+---
+uint32 read_status

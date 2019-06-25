@@ -1,0 +1,7 @@
+<library path="lib/libpipeline_planner">
+  <class name="pipeline_planner/PipelinePlanner" type="pipeline_planner::PipelinePlanner" base_class_type="nav_core::BaseGlobalPlanner">
+    <description>
+      A planner on which we make a pipeline by check points.
+    </description>
+  </class>
+</library>

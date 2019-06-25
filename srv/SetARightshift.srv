@@ -1,0 +1,7 @@
+#ID of the pipeline segment
+int32 ID
+#new right shift value of the pipeline segment
+float64 shift
+---
+#result state
+int32 result
