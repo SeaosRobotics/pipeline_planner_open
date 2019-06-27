@@ -22,6 +22,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_core
   nav_msgs
   navfn
+  move_base_msgs
   roscpp
   tf
   dynamic_reconfigure
@@ -62,7 +63,7 @@ generate_dynamic_reconfigure_options(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES pipeline_planner
-  CATKIN_DEPENDS costmap_2d std_msgs geometry_msgs nav_core nav_msgs navfn roscpp tf dynamic_reconfigure message_runtime
+  CATKIN_DEPENDS costmap_2d std_msgs geometry_msgs nav_core nav_msgs navfn move_base_msgs roscpp tf dynamic_reconfigure message_runtime
   #DEPENDS system_lib
 )
 
