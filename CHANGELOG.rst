@@ -2,6 +2,10 @@
 Changelog for package global_planner
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.3.4 (1.6.4) (2019-07-04)
+-------------------
+* Bugfix for checkpoints crossing validity.
+
 0.1.3.3 (1.6.3) (2019-06-24)
 -------------------
 * Deletion of fix_pipe_radius parameter.

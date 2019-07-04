@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>pipeline_planner</name>
-  <version>1.6.3</version>
+  <version>1.6.4</version>
   <description>The pipeline_planner package</description>
 
   <maintainer email="t-ogata@seaos.co.jp">t-ogata</maintainer>

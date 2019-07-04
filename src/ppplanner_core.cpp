@@ -402,12 +402,15 @@ bool PipelinePlanner::hasNoCross(const int endpoint,
    double SQx=Qx-Sx; double SQy=Qy-Sy;
    if(PQx*RSy==PQy*RSx){ // (P-Q)//(R-S)
     if(!(PQx*SQy==PQy*SQx))continue; // assertion of (P-Q)//(S-Q)
-    // X={SQ,SP,RQ,RP}
+    // X={SQ,SP,RQ,RP} in PQ axis
     // minX<= 0 <= maxX (condition for overlapping)
-    //double mintmp01=std::min(0,-PQx,RSx,-PQx+RSx);
-    double mintmp01=std::min(0.0,std::min(-PQx,std::min(RSx,-PQx+RSx)));
-    double maxtmp01=std::max(0.0,std::max(-PQx,std::max(RSx,-PQx+RSx)));
-    if((mintmp01<=-SQx)&&(-SQx<=maxtmp01)){
+    double SQ=SQx*PQx+SQy*PQy;
+    double SP=(Px-Sx)*PQx+(Py-Sy)*PQy;
+    double RQ=(Qx-Rx)*PQx+(Qy-Ry)*PQy;
+    double RP=(Px-Rx)*PQx+(Py-Ry)*PQy;
+    double minX=std::min(std::min(SQ,SP),std::min(RQ,RP));
+    double maxX=std::max(std::max(SQ,SP),std::max(RQ,RP));
+    if((minX<=0.0)&&(0.0<=maxX)){
      hasCross=true;
      dbgPx=Px;dbgPy=Py;dbgQx=Qx;dbgQy=Qy;
      dbgRx=Rx;dbgRy=Ry;dbgSx=Sx;dbgSy=Sy;
@@ -917,6 +920,17 @@ if(debug){
 
  endpoint=(openclose_==1)?npoints:npoints-1; // close or open
 
+ //calculation of pipe segments lengths
+ if(!InitSegInfo()){
+  ROS_ERROR_STREAM("some sequential checkpoints are too close.");
+  read_status_.data=10;
+  robot_status_.data=9;
+  check_points_.clear();
+  PublishCheckpointsResult(read_status_);
+  res.read_status=read_status_.data;
+  return true;
+ };
+
  //assertion for pipeline crossing
  if(!hasNoCross(endpoint,check_points_)){
   read_status_.data=8;
@@ -933,11 +947,6 @@ if(debug){
 
  //calculation of distance from centre
  if(flag!=1){
-  //calculation of pipe segments lengths
-  if(!InitSegInfo()){
-   flag=3;
-  };
-
   makePipeline();
 
 #if MODE==MODE_GPU
@@ -952,13 +961,6 @@ if(debug){
   read_status_.data=6;
   robot_status_.data=9;
   //check_points_.clear();
-  PublishCheckpointsResult(read_status_);
-  res.read_status=read_status_.data;
- } else if(flag==3){
-  ROS_ERROR_STREAM("some sequential checkpoints are too close.");
-  read_status_.data=10;
-  robot_status_.data=9;
-  check_points_.clear();
   PublishCheckpointsResult(read_status_);
   res.read_status=read_status_.data;
  } else if(flag==2){
